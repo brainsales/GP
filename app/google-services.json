@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "647862575017",
+    "firebase_url": "https://gameport-3620c.firebaseio.com",
+    "project_id": "gameport-3620c",
+    "storage_bucket": "gameport-3620c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:647862575017:android:fc59bb99bb649787",
+        "android_client_info": {
+          "package_name": "com.brainsales.gameport"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "647862575017-p9pa2hvt79lqiu6t24llq661ebm48dla.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.brainsales.gameport",
+            "certificate_hash": "35551769613c6fd409921bf51e9c0ac6086a2376"
+          }
+        },
+        {
+          "client_id": "647862575017-0alm8504f8qrcrf1gpofivdr2pibg4t3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCoUKwOlISeCOuLq7iRjVmjPNX6YjRuesI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "647862575017-0alm8504f8qrcrf1gpofivdr2pibg4t3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
