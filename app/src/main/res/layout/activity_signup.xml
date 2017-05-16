@@ -81,20 +81,29 @@
             android:id="@+id/btn_signup"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="24dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
             android:padding="12dp"
             android:text="Create Account"/>
 
 
-        <!-- Signup Button -->
+        <!-- loginLink -->
         <TextView android:id="@+id/link_login"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="20dp"
             android:text="Already a member? Login"
             android:gravity="center"
             android:textSize="16dip"/>
+
+
+        <!-- Agreement page -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="By joining Gameport, you agree to our Terms of Service and Privacy Policy."
+            android:gravity="center"
+            android:textSize="13dip"/>
 
     </LinearLayout>
 </ScrollView>
