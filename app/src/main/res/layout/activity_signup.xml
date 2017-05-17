@@ -62,27 +62,13 @@
         </android.support.design.widget.TextInputLayout>
 
 
-        <!-- Password Re-enter Label -->
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp">
-            <EditText android:id="@+id/input_reEnterPassword"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                android:hint="Re-enter Password"/>
-        </android.support.design.widget.TextInputLayout>
-
-
         <!-- Signup Button -->
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/btn_signup"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="24dp"
             android:padding="12dp"
             android:text="Create Account"/>
 
@@ -91,7 +77,7 @@
         <TextView android:id="@+id/link_login"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="24dp"
             android:text="Already a member? Login"
             android:gravity="center"
             android:textSize="16dip"/>
@@ -101,9 +87,10 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="By joining Gameport, you agree to our Terms of Service and Privacy Policy."
+            android:text="By joining GamePort, you agree to our\n Terms of Service and Privacy Policy."
             android:gravity="center"
-            android:textSize="13dip"/>
+            android:textSize="12dip"
+            android:layout_marginTop="50dp"/>
 
     </LinearLayout>
 </ScrollView>
