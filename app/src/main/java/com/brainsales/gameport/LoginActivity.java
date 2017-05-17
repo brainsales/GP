@@ -15,6 +15,9 @@ public class LoginActivity extends AppCompatActivity {
 
         Intent intent = new Intent(this, SigninActivity.class);
         startActivity(intent);
+
+        // add if statement!
+        finish();
     }
 
     @Override

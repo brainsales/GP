@@ -23,6 +23,7 @@ public class SignupActivity extends AppCompatActivity {
     @BindView(R.id.input_password) EditText _passwordText;
     @BindView(R.id.btn_signup) Button _signupButton;
     @BindView(R.id.link_login) TextView _loginLink;
+    @BindView(R.id.Link_agreement) TextView _agreementLink;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +44,18 @@ public class SignupActivity extends AppCompatActivity {
                 // Finish the registration screen and return to the Login activity
                 Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
                 startActivity(intent);
-                finish();
                 overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+                finish();
+            }
+        });
+
+        _agreementLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void  onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),AgreementActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+                finish();
             }
         });
     }
