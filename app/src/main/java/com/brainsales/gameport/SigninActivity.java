@@ -89,7 +89,7 @@ public class SigninActivity extends AppCompatActivity {
                             checkUserExist();
 
                         }else {
-                            Toast.makeText(getApplicationContext(), "Eroor Login", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), "Login failed", Toast.LENGTH_LONG).show();
                         }
 
                     }
@@ -112,7 +112,7 @@ public class SigninActivity extends AppCompatActivity {
 
                 }else {
 
-                    Toast.makeText(getApplicationContext(), "Eroor Login", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Login failed", Toast.LENGTH_LONG).show();
 
                 }
             }
