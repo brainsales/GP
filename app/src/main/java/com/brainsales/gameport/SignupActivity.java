@@ -59,7 +59,7 @@ public class SignupActivity extends AppCompatActivity {
         _loginLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),SigninActivity.class);
+                Intent intent = new Intent(getApplicationContext(), SigninActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
                 finish();
@@ -120,11 +120,6 @@ public class SignupActivity extends AppCompatActivity {
         moveTaskToBack(true);
     }
 
-    public void onSignupSuccess() {
-        _signupButton.setEnabled(true);
-        setResult(RESULT_OK, null);
-        finish();
-    }
 
     public void onSignupFailed() {
         Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
