@@ -112,7 +112,7 @@ public class SigninActivity extends AppCompatActivity {
                 if(dataSnapshot.hasChild(user_id)) {
 
                     mProgress.dismiss();
-                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
 
