@@ -62,14 +62,13 @@ public class SignupActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), SigninActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
-                finish();
             }
         });
 
         _agreementLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void  onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),AgreementActivity.class);
+                Intent intent = new Intent(getApplicationContext(), AgreementActivity.class);
                 startActivity(intent);
             }
         });
@@ -88,7 +87,7 @@ public class SignupActivity extends AppCompatActivity {
 
         if(!TextUtils.isEmpty(name) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {
 
-            mProgress.setMessage("Signing Up ...");
+            mProgress.setMessage("계정 생성 중 ...");
             mProgress.show();
 
             mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
