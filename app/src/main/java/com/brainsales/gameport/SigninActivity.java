@@ -24,7 +24,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import org.w3c.dom.Text;
 
 import butterknife.ButterKnife;
 import butterknife.BindView;
@@ -38,6 +37,7 @@ public class SigninActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
+    private ProgressDialog mProgress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +47,8 @@ public class SigninActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
+        mProgress = new ProgressDialog(this);
+
 
         _loginButton.setOnClickListener(new View.OnClickListener() {
 
@@ -67,7 +69,7 @@ public class SigninActivity extends AppCompatActivity {
         });
     }
 
-        public void login() {
+    public void login() {
 
             if (!validate()) {
                 onLoginFailed();
@@ -78,6 +80,9 @@ public class SigninActivity extends AppCompatActivity {
             String password = _passwordText.getText().toString();
 
             if(!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {
+
+                mProgress.setMessage("로그인 중 ...");
+                mProgress.show();
 
                 mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -95,7 +100,8 @@ public class SigninActivity extends AppCompatActivity {
                 });
 
             }
-        }
+    }
+
 
     private void checkUserExist() {
 
@@ -105,6 +111,7 @@ public class SigninActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.hasChild(user_id)) {
 
+                    mProgress.dismiss();
                     Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);

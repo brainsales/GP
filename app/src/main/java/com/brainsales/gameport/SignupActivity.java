@@ -20,7 +20,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import org.w3c.dom.Text;
 
 import butterknife.ButterKnife;
 import butterknife.BindView;
@@ -28,8 +27,8 @@ import butterknife.BindView;
 public class SignupActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
-    private ProgressDialog mProgress;
     private DatabaseReference mDatabase;
+    private ProgressDialog mProgress;
 
     @BindView(R.id.input_name) EditText _nameText;
     @BindView(R.id.input_email) EditText _emailText;
