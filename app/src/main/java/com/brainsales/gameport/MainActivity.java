@@ -24,7 +24,7 @@ import android.view.ViewGroup;
 
 import android.widget.TextView;
 
-
+// This is Starting Point
 public class MainActivity extends AppCompatActivity {
 
     private DatabaseReference mDatabase;
