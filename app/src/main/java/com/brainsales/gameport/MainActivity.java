@@ -151,25 +151,35 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-            return PlaceholderFragment.newInstance(position + 1);
+
+            switch (position) {
+                case 0:
+                    News news = new News();
+                    return news;
+                case 1:
+                    Award award = new Award();
+                    return award;
+                case 2:
+                    Produce produce = new Produce();
+                    return produce;
+            }
+            return null;
         }
 
         @Override
         public int getCount() {
-            return 4;
+            return 3;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "SECTION 1";
+                    return "News";
                 case 1:
-                    return "SECTION 2";
+                    return "Award";
                 case 2:
-                    return "SECTION 3";
-                case 3:
-                    return "SECTION 4";
+                    return "Produce";
             }
             return null;
         }
