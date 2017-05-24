@@ -78,7 +78,7 @@
         <TextView android:id="@+id/link_login"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="34dp"
             android:text="Already a member? Login"
             android:gravity="center"
             android:textSize="16dip"/>
@@ -90,8 +90,7 @@
             android:layout_height="wrap_content"
             android:text="By joining GamePort, you agree to our\n Terms of Service and Privacy Policy."
             android:gravity="center"
-            android:textSize="12dip"
-            android:layout_marginTop="50dp"/>
+            android:textSize="12dip" />
 
     </LinearLayout>
 </ScrollView>
