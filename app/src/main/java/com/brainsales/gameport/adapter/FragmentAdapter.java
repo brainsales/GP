@@ -27,6 +27,9 @@ public class FragmentAdapter extends RecyclerView.Adapter<FragmentAdapter.Fragme
         }
     }
 
+    public FragmentAdapter(){
+
+    }
 
     @Override
     public FragmentAdapter.FragmentViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

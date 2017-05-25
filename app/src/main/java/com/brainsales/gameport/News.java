@@ -25,10 +25,10 @@ public class News extends Fragment {
 
         RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.news_recycler_view);
         recyclerView.setHasFixedSize(true);
-        //FragmentAdapter adapter = new FragmentAdapter(new String[])
 
-        LinearLayoutManager llm = new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(llm);
+        FragmentAdapter adapter = new FragmentAdapter();
+        recyclerView.setAdapter(adapter);
+
 
         return rootView;
     }
