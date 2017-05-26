@@ -1,4 +1,4 @@
-package com.brainsales.gameport;
+package com.brainsales.gameport.Fragment;
 
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.brainsales.gameport.R;
 import com.brainsales.gameport.adapter.FragmentAdapter;
 
 /**
