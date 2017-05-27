@@ -30,6 +30,8 @@ public class News extends Fragment {
         FragmentAdapter adapter = new FragmentAdapter();
         recyclerView.setAdapter(adapter);
 
+        /*LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(mLayoutManager);*/
 
         return rootView;
     }

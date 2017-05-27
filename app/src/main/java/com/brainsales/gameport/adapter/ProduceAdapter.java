@@ -17,11 +17,16 @@ public class ProduceAdapter extends RecyclerView.Adapter<ProduceAdapter.ProduceV
     private String[] mDataset;
     public static class ProduceViewHolder extends RecyclerView.ViewHolder {
 
+        public CardView mCardView;
         public ProduceViewHolder (View v) {
             super(v);
 
+            mCardView = (CardView) v.findViewById(R.id.produce_card_view);
 
         }
+    }
+
+    public ProduceAdapter(){
     }
 
     @Override
