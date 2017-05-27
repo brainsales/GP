@@ -92,14 +92,22 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_settings) {
-            return true;
+            Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
         }
 
-        if (item.getItemId() == R.id.action_logout) {
+        if (id == R.id.action_Posting) {
+            Intent intent = new Intent(getApplicationContext(), PostingActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        }
 
+        if (id == R.id.action_logout) {
             logout();
-
         }
+
+
 
         return super.onOptionsItemSelected(item);
     }

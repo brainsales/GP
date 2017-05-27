@@ -2,18 +2,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.brainsales.gameport.MainActivity">
+
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
         android:title="@string/action_settings"
         app:showAsAction="never" />
 
-    <item android:id="@+id/action_search"
+    <item
+        android:id="@+id/action_search"
         android:icon="@mipmap/ic_search_white_24dp"
         android:title="Search"
         app:showAsAction="always" />
 
-    <item android:id="@+id/action_logout"
+    <item
+        android:id="@+id/action_Posting"
+        android:icon="@mipmap/ic_playlist_add_white_24dp"
+        android:title="Posting"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/action_logout"
         android:title="Log Out"
         app:showAsAction="never" />
 
