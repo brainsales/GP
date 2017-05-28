@@ -21,20 +21,32 @@
             app:srcCompat="@drawable/logo" />
 
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/nameText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Name" />
+            android:inputType="textShortMessage"
+            android:hint="GameName"
+            android:layout_marginTop="17dp"
+            android:layout_marginBottom="17dp"
+            />
 
         <EditText
-            android:id="@+id/editText2"
+            android:id="@+id/typeText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Name" />
+            android:inputType="textShortMessage"
+            android:hint="GameType"
+            android:layout_marginTop="17dp"
+            android:layout_marginBottom="17dp"
+            />
+
+        <Button
+            android:id="@+id/applyButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="announce" />
 
 
     </LinearLayout>

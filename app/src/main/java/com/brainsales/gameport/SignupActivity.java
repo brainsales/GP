@@ -81,7 +81,7 @@ public class SignupActivity extends AppCompatActivity {
         }
 
         final String name = _nameText.getText().toString().trim();
-        String email = _emailText.getText().toString().trim();
+        final String email = _emailText.getText().toString().trim();
         String password = _passwordText.getText().toString().trim();
 
         if(!TextUtils.isEmpty(name) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {
@@ -99,7 +99,7 @@ public class SignupActivity extends AppCompatActivity {
 
                         DatabaseReference cureent_user_db = mDatabase.child(user_id);
                         cureent_user_db.child("name").setValue(name);
-                        cureent_user_db.child("image").setValue("default");
+                        cureent_user_db.child("email").setValue(email);
 
                         mProgress.dismiss();
 
