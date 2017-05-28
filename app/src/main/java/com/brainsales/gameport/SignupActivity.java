@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.brainsales.gameport.utils.DeviceUuidFactory;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -29,6 +30,7 @@ public class SignupActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
     private ProgressDialog mProgress;
+    private DeviceUuidFactory mDeviceUuidFactory;
 
     @BindView(R.id.input_name) EditText _nameText;
     @BindView(R.id.input_email) EditText _emailText;
@@ -80,9 +82,11 @@ public class SignupActivity extends AppCompatActivity {
             return;
         }
 
+        mDeviceUuidFactory = new DeviceUuidFactory(this);
+        final String Uuid = mDeviceUuidFactory.getDeviceUuid().toString().trim();
         final String name = _nameText.getText().toString().trim();
         final String email = _emailText.getText().toString().trim();
-        String password = _passwordText.getText().toString().trim();
+        final String password = _passwordText.getText().toString().trim();
 
         if(!TextUtils.isEmpty(name) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {
 
@@ -100,6 +104,7 @@ public class SignupActivity extends AppCompatActivity {
                         DatabaseReference cureent_user_db = mDatabase.child(user_id);
                         cureent_user_db.child("name").setValue(name);
                         cureent_user_db.child("email").setValue(email);
+                        cureent_user_db.child("UUID").setValue(Uuid);
 
                         mProgress.dismiss();
 
