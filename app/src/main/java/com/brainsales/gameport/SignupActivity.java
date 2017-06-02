@@ -77,6 +77,7 @@ public class SignupActivity extends AppCompatActivity {
         });
     }
 
+
     private void signup() {
 
         if (!validate()) {
@@ -136,7 +137,6 @@ public class SignupActivity extends AppCompatActivity {
                         }
                     });
         }
-
     }
 
 

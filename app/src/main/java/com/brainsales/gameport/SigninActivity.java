@@ -114,16 +114,13 @@ public class SigninActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.hasChild(user_id)) {
-
                     mProgress.dismiss();
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
-
                 }else {
                     mProgress.dismiss();
                     Toast.makeText(getApplicationContext(), "Login failed", Toast.LENGTH_LONG).show();
-
                 }
             }
 
