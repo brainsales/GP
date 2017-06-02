@@ -20,6 +20,7 @@ import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 // This is Starting Point
 public class MainActivity extends AppCompatActivity {
@@ -44,7 +45,12 @@ public class MainActivity extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
 
                 mUser = firebaseAuth.getCurrentUser();
-                if((firebaseAuth.getCurrentUser() == null) || (!mUser.isEmailVerified())){
+                if(firebaseAuth.getCurrentUser() == null) {
+                    Intent intent = new Intent(getApplicationContext(), SigninActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                } else if (!mUser.isEmailVerified()) {
+                    Toast.makeText(getApplicationContext(), "Check Your Email", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(getApplicationContext(), SigninActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);

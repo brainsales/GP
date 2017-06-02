@@ -34,7 +34,6 @@ public class SigninActivity extends AppCompatActivity {
     @BindView(R.id.input_password) EditText _passwordText;
     @BindView(R.id.btn_login) Button _loginButton;
     @BindView(R.id.link_signup) TextView _signupLink;
-    @BindView(R.id.verify_btn) TextView _verifyText;
 
     private FirebaseAuth mAuth;
     private FirebaseUser mUser;
@@ -48,7 +47,6 @@ public class SigninActivity extends AppCompatActivity {
         setContentView(R.layout.activity_signin);
         ButterKnife.bind(this);
 
-        _verifyText.setVisibility(View.INVISIBLE);
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
         mProgress = new ProgressDialog(this);
@@ -72,6 +70,7 @@ public class SigninActivity extends AppCompatActivity {
             }
         });
     }
+
 
     public void login() {
 

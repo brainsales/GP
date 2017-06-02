@@ -112,7 +112,7 @@ public class SignupActivity extends AppCompatActivity {
 
                         mProgress.dismiss();
 
-                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), SigninActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
                     }
