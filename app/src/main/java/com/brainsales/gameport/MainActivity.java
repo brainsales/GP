@@ -10,6 +10,7 @@ import com.brainsales.gameport.Fragment.Award;
 import com.brainsales.gameport.Fragment.News;
 import com.brainsales.gameport.Fragment.Produce;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 
 import android.support.v4.app.Fragment;
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
+    private FirebaseUser mUser;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
@@ -41,7 +43,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
 
-                if(firebaseAuth.getCurrentUser() == null){
+                mUser = firebaseAuth.getCurrentUser();
+                if((firebaseAuth.getCurrentUser() == null) || (!mUser.isEmailVerified())){
                     Intent intent = new Intent(getApplicationContext(), SigninActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);

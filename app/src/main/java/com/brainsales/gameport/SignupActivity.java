@@ -18,6 +18,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -28,6 +29,7 @@ import butterknife.BindView;
 public class SignupActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
+    private FirebaseUser mUser;
     private DatabaseReference mDatabase;
     private ProgressDialog mProgress;
     private DeviceUuidFactory mDeviceUuidFactory;
@@ -99,6 +101,8 @@ public class SignupActivity extends AppCompatActivity {
 
                     if(task.isSuccessful()){
 
+                        sendVerificationEmail();
+
                         String user_id = mAuth.getCurrentUser().getUid();
 
                         DatabaseReference cureent_user_db = mDatabase.child(user_id);
@@ -116,6 +120,25 @@ public class SignupActivity extends AppCompatActivity {
             });
         }
     }
+
+
+    public void sendVerificationEmail() {
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (mUser != null) {
+            mUser.sendEmailVerification()
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(SignupActivity.this, "Verification email sent", Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
+        }
+
+    }
+
 
     @Override
     public void onBackPressed() {
