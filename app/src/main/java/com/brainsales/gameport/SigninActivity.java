@@ -48,6 +48,7 @@ public class SigninActivity extends AppCompatActivity {
         setContentView(R.layout.activity_signin);
         ButterKnife.bind(this);
 
+        _verifyText.setVisibility(View.INVISIBLE);
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
         mProgress = new ProgressDialog(this);
@@ -96,6 +97,7 @@ public class SigninActivity extends AppCompatActivity {
                             checkUserExist();
 
                         }else {
+                            mProgress.dismiss();
                             Toast.makeText(getApplicationContext(), "Login failed", Toast.LENGTH_LONG).show();
                         }
 
@@ -120,7 +122,7 @@ public class SigninActivity extends AppCompatActivity {
                     startActivity(intent);
 
                 }else {
-
+                    mProgress.dismiss();
                     Toast.makeText(getApplicationContext(), "Login failed", Toast.LENGTH_LONG).show();
 
                 }
