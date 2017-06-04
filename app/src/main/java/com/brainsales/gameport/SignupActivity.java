@@ -65,6 +65,7 @@ public class SignupActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), SigninActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+                finish();
             }
         });
 
@@ -116,6 +117,7 @@ public class SignupActivity extends AppCompatActivity {
                         Intent intent = new Intent(getApplicationContext(), SigninActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
+                        finish();
                     }
                 }
             });

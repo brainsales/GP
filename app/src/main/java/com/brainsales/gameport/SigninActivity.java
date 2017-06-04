@@ -67,6 +67,7 @@ public class SigninActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), SignupActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+                finish();
             }
         });
     }
@@ -118,6 +119,7 @@ public class SigninActivity extends AppCompatActivity {
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
+                    finish();
                 }else {
                     mProgress.dismiss();
                     Toast.makeText(getApplicationContext(), "Login failed", Toast.LENGTH_LONG).show();

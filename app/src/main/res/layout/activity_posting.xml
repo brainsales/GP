@@ -16,9 +16,9 @@
 
         <ImageButton
             android:id="@+id/imageButton"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/logo" />
+            app:srcCompat="@mipmap/add_btn" />
 
         <EditText
             android:id="@+id/nameText"
