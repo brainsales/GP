@@ -18,21 +18,33 @@ import com.brainsales.gameport.adapter.ProduceAdapter;
 
 public class Produce extends Fragment {
 
+    private RecyclerView mProduceList;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_produce, container, false);
 
-        RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.produce_recycler_view);
-        recyclerView.setHasFixedSize(true);
+        mProduceList = (RecyclerView) rootView.findViewById(R.id.produce_recycler_view);
+        mProduceList.setHasFixedSize(true);
+        mProduceList.setLayoutManager(new LinearLayoutManager(getActivity()));
+
 
         ProduceAdapter adapter = new ProduceAdapter();
-        recyclerView.setAdapter(adapter);
+        mProduceList.setAdapter(adapter);
 
         /*LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);*/
 
         return rootView;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+
+
     }
 }
