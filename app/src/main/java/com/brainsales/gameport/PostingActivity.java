@@ -12,6 +12,9 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -26,6 +29,7 @@ public class PostingActivity extends AppCompatActivity {
     private static final int GALLERY_REQUEST = 1;
     private StorageReference mStorage;
     private ProgressDialog mProgress;
+    private DatabaseReference mDatabase;
 
 
     @Override
@@ -33,12 +37,14 @@ public class PostingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_posting);
 
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("Games");
         mStorage = FirebaseStorage.getInstance().getReference();
         mSelectImage = (ImageButton) findViewById(R.id.imageButton);
         mGameName = (EditText) findViewById(R.id.nameText);
         mGameType = (EditText) findViewById(R.id.typeText);
         mAnnounce = (Button) findViewById(R.id.applyButton);
         mProgress = new ProgressDialog(this);
+
 
         mSelectImage.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -68,8 +74,8 @@ public class PostingActivity extends AppCompatActivity {
         mProgress.setMessage("Posting to Square");
         mProgress.show();
 
-        String game_name = mGameName.getText().toString().trim();
-        String game_type = mGameType.getText().toString().trim();
+        final String game_name = mGameName.getText().toString().trim();
+        final String game_type = mGameType.getText().toString().trim();
 
         if(!TextUtils.isEmpty(game_name) && !TextUtils.isEmpty(game_type) && mImageUri != null) {
 
@@ -80,6 +86,14 @@ public class PostingActivity extends AppCompatActivity {
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
                     @SuppressWarnings("VisibleForTests") Uri downloadUrl = taskSnapshot.getDownloadUrl();
+
+                    DatabaseReference newPost = mDatabase.push();
+
+                    newPost.child("GameName").setValue(game_name);
+                    newPost.child("GameType").setValue(game_type);
+                    newPost.child("image").setValue(downloadUrl.toString());
+                    newPost.child("uid").setValue(FirebaseAuth.getInstance().getCurrentUser().getUid());
+
                     mProgress.dismiss();
 
 
