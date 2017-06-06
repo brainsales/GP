@@ -23,11 +23,11 @@ public class FragmentAdapter extends RecyclerView.Adapter<FragmentAdapter.Fragme
             super(v);
 
             mCardView = (CardView) v.findViewById(R.id.card_view);
+
         }
     }
 
     public FragmentAdapter(){
-
     }
 
     @Override
