@@ -41,6 +41,7 @@ public class SigninActivity extends AppCompatActivity {
     private DatabaseReference mDatabase;
     private ProgressDialog mProgress;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

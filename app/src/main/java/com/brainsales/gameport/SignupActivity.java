@@ -41,6 +41,7 @@ public class SignupActivity extends AppCompatActivity {
     @BindView(R.id.link_login) TextView _loginLink;
     @BindView(R.id.Link_agreement) TextView _agreementLink;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
