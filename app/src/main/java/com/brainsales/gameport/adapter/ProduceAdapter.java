@@ -1,3 +1,4 @@
+/*
 package com.brainsales.gameport.adapter;
 
 import android.support.v7.widget.CardView;
@@ -11,9 +12,11 @@ import com.brainsales.gameport.R;
 
 import org.w3c.dom.Text;
 
+*/
 /**
  * Created by Ryu on 2017-05-27.
- */
+ *//*
+
 
 public class ProduceAdapter extends RecyclerView.Adapter<ProduceAdapter.ProduceViewHolder> {
 
@@ -58,3 +61,4 @@ public class ProduceAdapter extends RecyclerView.Adapter<ProduceAdapter.ProduceV
 
 
 }
+*/

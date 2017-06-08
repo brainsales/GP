@@ -56,7 +56,6 @@ public class PostingActivity extends AppCompatActivity {
 
         });
 
-
         mAnnounce.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,19 +64,19 @@ public class PostingActivity extends AppCompatActivity {
 
             }
         });
-
     }
 
 
     private void startAnnounce() {
 
         mProgress.setMessage("Posting to Square");
-        mProgress.show();
 
         final String game_name = mGameName.getText().toString().trim();
         final String game_type = mGameType.getText().toString().trim();
 
         if(!TextUtils.isEmpty(game_name) && !TextUtils.isEmpty(game_type) && mImageUri != null) {
+
+            mProgress.show();
 
             StorageReference filepath = mStorage.child("Game_Images").child(mImageUri.getLastPathSegment());
 
@@ -96,6 +95,10 @@ public class PostingActivity extends AppCompatActivity {
 
                     mProgress.dismiss();
 
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                    finish();
 
                 }
             });

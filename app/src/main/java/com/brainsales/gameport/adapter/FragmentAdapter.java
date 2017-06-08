@@ -1,3 +1,4 @@
+/*
 package com.brainsales.gameport.adapter;
 
 import android.support.v7.widget.CardView;
@@ -8,9 +9,11 @@ import android.view.ViewGroup;
 
 import com.brainsales.gameport.R;
 
+*/
 /**
  * Created by Ryu on 2017-05-24.
- */
+ *//*
+
 
 public class FragmentAdapter extends RecyclerView.Adapter<FragmentAdapter.FragmentViewHolder> {
 
@@ -49,3 +52,4 @@ public class FragmentAdapter extends RecyclerView.Adapter<FragmentAdapter.Fragme
 
 
 }
+*/
