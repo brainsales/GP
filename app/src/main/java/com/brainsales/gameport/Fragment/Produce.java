@@ -58,7 +58,7 @@ public class Produce extends Fragment {
         }
 
         mFirebaseAdapter = new FirebaseRecyclerAdapter<ProduceSetting, ProduceViewHolder>(
-                ProduceSetting.class, R.layout.card_item_produce, ProduceViewHolder.class, mDatabase
+                ProduceSetting.class, R.layout.produce_item, ProduceViewHolder.class, mDatabase
         ) {
             @Override
             protected void populateViewHolder(ProduceViewHolder viewHolder, ProduceSetting model, int position) {
@@ -101,15 +101,15 @@ public class Produce extends Fragment {
             mView = itemView;
         }
         public void setName(String name) {
-            TextView post_name = (TextView) mView.findViewById(R.id.post_name);
+            TextView post_name = (TextView) mView.findViewById(R.id.name_text);
             post_name.setText(name);
         }
         public void setType(String type) {
-            TextView post_type = (TextView) mView.findViewById(R.id.post_type);
+            TextView post_type = (TextView) mView.findViewById(R.id.info_text);
             post_type.setText(type);
         }
         public void setImage(Context ctx, String image) {
-            ImageView post_image = (ImageView) mView.findViewById(R.id.post_image);
+            ImageView post_image = (ImageView) mView.findViewById(R.id.game_image);
             Picasso.with(ctx).load(image).into(post_image);
         }
     }
