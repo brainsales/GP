@@ -45,6 +45,7 @@
         android:id="@+id/choose_path"
         android:layout_below="@+id/choose_vedio"
         android:layout_centerHorizontal="true"
+        android:gravity="center_horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
