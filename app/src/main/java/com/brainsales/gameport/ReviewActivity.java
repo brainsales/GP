@@ -1,27 +1,27 @@
 package com.brainsales.gameport;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
-import android.provider.ContactsContract;
-import android.provider.MediaStore;
 import android.provider.OpenableColumns;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Random;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
 
 public class ReviewActivity extends AppCompatActivity {
 
@@ -29,19 +29,29 @@ public class ReviewActivity extends AppCompatActivity {
     private static final int GALLERY_REQUEST = 1;
     private static final int SELECT_VIDEO = 3;
     private ImageButton mSelectImage;
+    private DatabaseReference mDatabase;
     private Button mChooseButton;
+    private Button mAnnounceVideo;
+    private EditText mDescription;
     private Uri mImageUri = null;
     private Uri mVideoUri = null;
+    private ProgressDialog mProgress;
     private TextView mTextView;
+    private StorageReference mStorage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_review);
 
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("Reviews");
+        mStorage = FirebaseStorage.getInstance().getReference();
         mSelectImage = (ImageButton) findViewById(R.id.thumbnail);
         mChooseButton = (Button) findViewById(R.id.choose_vedio);
         mTextView = (TextView) findViewById(R.id.choose_path);
+        mDescription = (EditText) findViewById(R.id.description_text);
+        mAnnounceVideo = (Button) findViewById(R.id.apply_button);
+        mProgress = new ProgressDialog(this);
 
 
         mSelectImage.setOnClickListener(new View.OnClickListener() {
@@ -61,8 +71,59 @@ public class ReviewActivity extends AppCompatActivity {
                 startActivityForResult(vediointent, SELECT_VIDEO);
             }
         });
+
+        mAnnounceVideo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                startAnnounceVideo();
+
+            }
+        });
     }
 
+    private void startAnnounceVideo() {
+
+        mProgress.setMessage("Posting to Square");
+
+        final String VideoDescription = mDescription.getText().toString().trim();
+
+        if(!TextUtils.isEmpty(VideoDescription) && mVideoUri != null && mImageUri != null) {
+
+            mProgress.show();
+
+            StorageReference filepath_Images = mStorage.child("Thumbnail_Images").child(mImageUri.getLastPathSegment());
+            filepath_Images.putFile(mImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                    @SuppressWarnings("VisibleForTests") Uri downloadUrl = taskSnapshot.getDownloadUrl();
+
+                    DatabaseReference newPost = mDatabase.push();
+                    newPost.child("Description").setValue(VideoDescription);
+                    newPost.child("image_review").setValue(downloadUrl.toString());
+                    newPost.child("video_review").setValue(downloadUrl.toString());
+                    newPost.child("uid").setValue(FirebaseAuth.getInstance().getCurrentUser().getUid());
+
+                 }
+            });
+
+
+            StorageReference filepath_Video = mStorage.child("Review_Video").child(mVideoUri.getLastPathSegment());
+            filepath_Video.putFile(mVideoUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                    mProgress.dismiss();
+
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                    finish();
+                }
+            });
+        }
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

@@ -31,7 +31,6 @@ public class PostingActivity extends AppCompatActivity {
     private ProgressDialog mProgress;
     private DatabaseReference mDatabase;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
