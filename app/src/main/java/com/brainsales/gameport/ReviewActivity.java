@@ -101,7 +101,7 @@ public class ReviewActivity extends AppCompatActivity {
 
                     DatabaseReference newPost = mDatabase.push();
                     newPost.child("Description").setValue(VideoDescription);
-                    newPost.child("image_review").setValue(downloadUrl.toString());
+                    newPost.child("image").setValue(downloadUrl.toString());
                     newPost.child("video_review").setValue(downloadUrl.toString());
                     newPost.child("uid").setValue(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
@@ -132,7 +132,6 @@ public class ReviewActivity extends AppCompatActivity {
         if (requestCode == GALLERY_REQUEST && resultCode == RESULT_OK) {
 
             mImageUri = data.getData();
-
             mSelectImage.setImageURI(mImageUri);
 
         } else if (requestCode == SELECT_VIDEO && resultCode == RESULT_OK) {

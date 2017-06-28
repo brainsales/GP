@@ -4,8 +4,6 @@ import android.content.Context;
 import android.app.ProgressDialog;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -36,7 +34,6 @@ public class Produce extends Fragment {
     private LinearLayoutManager manager;
 
     public Produce() {}
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -100,14 +97,17 @@ public class Produce extends Fragment {
             super(itemView);
             mView = itemView;
         }
+
         public void setName(String name) {
             TextView post_name = (TextView) mView.findViewById(R.id.name_text);
             post_name.setText(name);
         }
+
         public void setType(String type) {
             TextView post_type = (TextView) mView.findViewById(R.id.info_text);
             post_type.setText(type);
         }
+
         public void setImage(Context ctx, String image) {
             ImageView post_image = (ImageView) mView.findViewById(R.id.game_image);
             Picasso.with(ctx).load(image).into(post_image);
