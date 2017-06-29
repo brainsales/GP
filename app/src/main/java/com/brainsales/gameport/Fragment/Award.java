@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.brainsales.gameport.R;
 import com.brainsales.gameport.utils.AwardSetting;
@@ -62,6 +63,15 @@ public class Award extends Fragment {
             protected void populateViewHolder(AwardViewHolder viewHolder, AwardSetting model, int position) {
                 viewHolder.setDescription(model.getDescription());
                 viewHolder.setImage(getActivity().getApplicationContext(), model.getImage());
+
+                viewHolder.mView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+
+
+                    }
+                });
             }
         };
 
