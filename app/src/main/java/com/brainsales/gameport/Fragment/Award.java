@@ -2,6 +2,7 @@ package com.brainsales.gameport.Fragment;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.brainsales.gameport.PlayerActivity;
 import com.brainsales.gameport.R;
 import com.brainsales.gameport.utils.AwardSetting;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -68,7 +70,9 @@ public class Award extends Fragment {
                     @Override
                     public void onClick(View v) {
 
-
+                        Intent intent = new Intent(getActivity(), PlayerActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
 
                     }
                 });
