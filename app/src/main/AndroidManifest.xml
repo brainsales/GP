@@ -36,7 +36,7 @@
         <activity android:name=".SettingsActivity" />
         <activity android:name=".PostingActivity" />
         <activity android:name=".ReviewActivity" />
-        <activity android:name=".PlayerActivity"></activity>
+        <activity android:name=".Player.PlayerActivity"></activity>
     </application>
 
 </manifest>

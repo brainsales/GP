@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,7 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.brainsales.gameport.PlayerActivity;
+import com.brainsales.gameport.Player.PlayerActivity;
 import com.brainsales.gameport.R;
 import com.brainsales.gameport.utils.AwardSetting;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -70,6 +69,7 @@ public class Award extends Fragment {
                     @Override
                     public void onClick(View v) {
 
+                        //Toast.makeText(getActivity(), "Start Player", Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(getActivity(), PlayerActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
