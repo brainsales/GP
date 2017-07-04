@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.brainsales.gameport.Player.PlayerActivity;
 import com.brainsales.gameport.R;
@@ -58,7 +57,7 @@ public class Award extends Fragment {
         }
 
         mFirebaseAdapter = new FirebaseRecyclerAdapter<AwardSetting, AwardViewHolder>(
-                AwardSetting.class, R.layout.card_item, AwardViewHolder.class, mDatabase
+                AwardSetting.class, R.layout.award_item, AwardViewHolder.class, mDatabase
         ) {
             @Override
             protected void populateViewHolder(AwardViewHolder viewHolder, AwardSetting model, int position) {
