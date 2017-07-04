@@ -69,13 +69,15 @@ public class News extends Fragment {
                     @Override
                     public void onClick(View v) {
 
-                        Toast.makeText(getActivity(), "Start Player", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), "To WebSite", Toast.LENGTH_LONG).show();
 
                     }
                 });
             }
         };
 
+        mAwardList.setLayoutManager(manager);
+        mFirebaseAdapter.notifyDataSetChanged();
         mAwardList.setAdapter(mFirebaseAdapter);
         return rootView;
     }
