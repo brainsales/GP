@@ -45,12 +45,9 @@ public class Award extends Fragment {
 
         mAwardList = (RecyclerView) rootView.findViewById(R.id.award_recycler_view);
         manager = new LinearLayoutManager(getActivity());
-        manager.setStackFromEnd(true);
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Reviews");
-
+        manager.setStackFromEnd(true);
         manager.setReverseLayout(true);
-
-        mAwardList.setLayoutManager(manager);
 
         if (mAwardList != null) {
             mAwardList.setHasFixedSize(true);
@@ -77,24 +74,6 @@ public class Award extends Fragment {
                 });
             }
         };
-
-        mFirebaseAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
-            @Override
-            public void onItemRangeInserted(int positionStart, int itemCount) {
-                super.onItemRangeInserted(positionStart, itemCount);
-                int friendlyMessageCount = mFirebaseAdapter.getItemCount();
-                int lastVisiblePosition =
-                        manager.findLastCompletelyVisibleItemPosition();
-                // If the recycler view is initially being loaded or the
-                // user is at the bottom of the list, scroll to the bottom
-                // of the list to show the newly added message.
-                if (lastVisiblePosition == -1 ||
-                        (positionStart >= (friendlyMessageCount - 1) &&
-                                lastVisiblePosition == (positionStart - 1))) {
-                    mAwardList.scrollToPosition(positionStart);
-                }
-            }
-        });
 
         mAwardList.setLayoutManager(manager);
         mFirebaseAdapter.notifyDataSetChanged();

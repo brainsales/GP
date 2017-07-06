@@ -43,12 +43,9 @@ public class Produce extends Fragment {
 
         mProduceList = (RecyclerView) rootView.findViewById(R.id.produce_recycler_view);
         manager = new LinearLayoutManager(getActivity());
-        manager.setStackFromEnd(true);
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Games");
-
+        manager.setStackFromEnd(true);
         manager.setReverseLayout(true);
-
-        mProduceList.setLayoutManager(manager);
 
         if (mProduceList!=null){
             mProduceList.setHasFixedSize(true);
@@ -64,24 +61,6 @@ public class Produce extends Fragment {
                 viewHolder.setImage(getActivity().getApplicationContext(), model.getImage());
             }
         };
-
-        mFirebaseAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
-            @Override
-            public void onItemRangeInserted(int positionStart, int itemCount) {
-                super.onItemRangeInserted(positionStart, itemCount);
-                int friendlyMessageCount = mFirebaseAdapter.getItemCount();
-                int lastVisiblePosition =
-                        manager.findLastCompletelyVisibleItemPosition();
-                // If the recycler view is initially being loaded or the
-                // user is at the bottom of the list, scroll to the bottom
-                // of the list to show the newly added message.
-                if (lastVisiblePosition == -1 ||
-                        (positionStart >= (friendlyMessageCount - 1) &&
-                                lastVisiblePosition == (positionStart - 1))) {
-                    mProduceList.scrollToPosition(positionStart);
-                }
-            }
-        });
 
         mProduceList.setLayoutManager(manager);
         mFirebaseAdapter.notifyDataSetChanged();

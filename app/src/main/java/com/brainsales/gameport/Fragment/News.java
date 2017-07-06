@@ -49,10 +49,6 @@ public class News extends Fragment {
         mAwardList.setLayoutManager(manager);
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Reviews");
 
-        manager.setReverseLayout(true);
-
-        mAwardList.setLayoutManager(manager);
-
         if (mAwardList != null) {
             mAwardList.setHasFixedSize(true);
         }
