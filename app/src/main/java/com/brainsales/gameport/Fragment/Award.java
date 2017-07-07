@@ -16,10 +16,11 @@ import android.widget.TextView;
 import com.brainsales.gameport.Player.PlayerActivity;
 import com.brainsales.gameport.R;
 import com.brainsales.gameport.utils.AwardSetting;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.squareup.picasso.Picasso;
 
 /**
  * Created by Ryu on 2017-05-23.
@@ -97,7 +98,13 @@ public class Award extends Fragment {
 
         public void setImage(Context ctx, String image) {
             ImageView post_image = (ImageView) mView.findViewById(R.id.card_image);
-            Picasso.with(ctx).load(image).into(post_image);
+
+            Glide.with(ctx)
+                    .load(image)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .override(300, 200)
+                    .centerCrop()
+                    .into(post_image);
         }
 
     }

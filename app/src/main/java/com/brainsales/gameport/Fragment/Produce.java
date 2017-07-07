@@ -14,6 +14,8 @@ import android.widget.TextView;
 
 import com.brainsales.gameport.R;
 import com.brainsales.gameport.utils.ProduceSetting;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -89,7 +91,16 @@ public class Produce extends Fragment {
 
         public void setImage(Context ctx, String image) {
             ImageView post_image = (ImageView) mView.findViewById(R.id.game_image);
-            Picasso.with(ctx).load(image).into(post_image);
+           // Picasso.with(ctx).load(image).into(post_image);
+
+
+            Glide.with(ctx)
+                    .load(image)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .override(200, 130)
+                    .centerCrop()
+                    .into(post_image);
+
         }
     }
 
