@@ -98,6 +98,7 @@ public class Award extends Fragment {
 
         public void setImage(Context ctx, String image) {
             ImageView post_image = (ImageView) mView.findViewById(R.id.card_image);
+            ImageView user_image = (ImageView) mView.findViewById(R.id.user_image);
 
             Glide.with(ctx)
                     .load(image)
@@ -105,6 +106,13 @@ public class Award extends Fragment {
                     .override(300, 200)
                     .centerCrop()
                     .into(post_image);
+
+            Glide.with(ctx)
+                    .load(image)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .override(50, 60)
+                    .centerCrop()
+                    .into(user_image);
         }
 
     }

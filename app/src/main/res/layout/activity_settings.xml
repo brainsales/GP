@@ -7,8 +7,8 @@
 
     <ImageButton
         android:id="@+id/imageButton"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="100dp"
+        android:layout_height="120dp"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
         app:srcCompat="@mipmap/ic_account_box_white_24dp"
