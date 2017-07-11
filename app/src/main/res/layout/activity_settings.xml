@@ -7,14 +7,15 @@
 
     <ImageButton
         android:id="@+id/profile_image"
-        android:layout_width="100dp"
+        android:layout_width="80dp"
         android:layout_height="120dp"
-        android:adjustViewBounds="true"
-        android:scaleType="centerCrop"
-        app:srcCompat="@mipmap/ic_account_box_white_24dp"
+        android:src="@drawable/profileimage"
+        android:layout_marginTop="10dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp" />
+        android:background="#00ffffff"
+        android:scaleType="centerCrop"
+        android:adjustViewBounds="true" />
 
     <EditText
         android:id="@+id/user_Name"
@@ -24,7 +25,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/input_outline"
         android:hint="UserName for Bank"
         android:inputType="textPersonName"
@@ -38,7 +39,7 @@
         android:layout_below="@+id/user_Name"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:layout_marginRight="20dp"
         android:padding="15dp"
         android:inputType="textPersonName"
@@ -52,7 +53,7 @@
         android:layout_below="@+id/bank_Name"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:layout_marginRight="20dp"
         android:padding="15dp"
         android:inputType="number"
@@ -66,7 +67,7 @@
         android:layout_below="@+id/account_Text"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:layout_marginRight="20dp"
         android:padding="15dp"
         android:inputType="number"

@@ -102,14 +102,14 @@ public class Award extends Fragment {
             Glide.with(ctx)
                     .load(image)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .override(300, 200)
+                    .override(340, 216)
                     .centerCrop()
                     .into(post_image);
 
             Glide.with(ctx)
                     .load(image)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .override(50, 60)
+                    .override(80, 120)
                     .centerCrop()
                     .into(user_image);
         }

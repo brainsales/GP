@@ -15,6 +15,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.brainsales.gameport.utils.Gameport;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -39,6 +40,8 @@ public class ReviewActivity extends AppCompatActivity {
     private ProgressDialog mProgress;
     private TextView mTextView;
     private StorageReference mStorage;
+
+    public boolean mCheckUserData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,50 +88,61 @@ public class ReviewActivity extends AppCompatActivity {
 
     private void startAnnounceVideo() {
 
+        Gameport gameport = (Gameport) getApplication();
+        mCheckUserData = gameport.getGlobalValue();
 
-        mProgress.setMessage("Posting to Square");
+            mProgress.setMessage("Posting to Square");
 
         final String VideoDescription = mDescription.getText().toString().trim();
 
-        if(!TextUtils.isEmpty(VideoDescription) && mVideoUri != null && mImageUri != null) {
+        if (!TextUtils.isEmpty(VideoDescription) && mVideoUri != null && mImageUri != null) {
 
-            mProgress.show();
+            if (mCheckUserData == true) {
 
-            StorageReference filepath_Images = mStorage.child("Thumbnail_Images").child(mImageUri.getLastPathSegment());
-            filepath_Images.putFile(mImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                mProgress.show();
 
-                    @SuppressWarnings("VisibleForTests") Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                StorageReference filepath_Images = mStorage.child("Thumbnail_Images").child(mImageUri.getLastPathSegment());
+                filepath_Images.putFile(mImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
-                    DatabaseReference newPost = mDatabase.push();
-                    newPost.child("Description").setValue(VideoDescription);
-                    newPost.child("image").setValue(downloadUrl.toString());
-                    newPost.child("video_review").setValue(downloadUrl.toString());
-                    newPost.child("uid").setValue(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                        @SuppressWarnings("VisibleForTests") Uri downloadUrl = taskSnapshot.getDownloadUrl();
 
-                 }
-            });
+                        DatabaseReference newPost = mDatabase.push();
+                        newPost.child("Description").setValue(VideoDescription);
+                        newPost.child("image").setValue(downloadUrl.toString());
+                        newPost.child("video_review").setValue(downloadUrl.toString());
+                        newPost.child("uid").setValue(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
+                    }
+                });
 
-            StorageReference filepath_Video = mStorage.child("Review_Video").child(mVideoUri.getLastPathSegment());
-            filepath_Video.putFile(mVideoUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                StorageReference filepath_Video = mStorage.child("Review_Video").child(mVideoUri.getLastPathSegment());
+                filepath_Video.putFile(mVideoUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
-                    mProgress.dismiss();
+                        mProgress.dismiss();
 
-                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);
-                    finish();
-                }
-            });
-        }else {
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+                        finish();
+                    }
+                });
+            }else {
+                Toast.makeText(getApplicationContext(), "Fill Up User Info", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
+            }
+        } else {
             Toast.makeText(getApplicationContext(), "Fill Up All Info", Toast.LENGTH_LONG).show();
             return;
         }
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

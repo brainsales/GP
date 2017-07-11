@@ -12,11 +12,13 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.brainsales.gameport.utils.Gameport;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
@@ -26,15 +28,13 @@ import butterknife.ButterKnife;
 public class SettingsActivity extends AppCompatActivity {
     public SettingsActivity() {}
 
-    public boolean checkUserData = false;
-
-    private FirebaseAuth mAuth;
-    private FirebaseUser mUser;
     private DatabaseReference mDatabase;
     private ProgressDialog mProgress;
     private StorageReference mStorage;
     private Uri mImageUri = null;
     private static final int GALLERY_REQUEST = 1;
+
+    public boolean mCheckUserData = true;
 
     @BindView(R.id.profile_image) ImageButton _userImage;
     @BindView(R.id.user_Name) EditText _userName;
@@ -50,8 +50,8 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
         ButterKnife.bind(this);
 
-        mAuth = FirebaseAuth.getInstance();
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
+        mStorage = FirebaseStorage.getInstance().getReference();
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("Poters");
         mProgress = new ProgressDialog(this);
 
         _userImage.setOnClickListener(new View.OnClickListener(){
@@ -73,6 +73,8 @@ public class SettingsActivity extends AppCompatActivity {
 
     private void register() {
 
+        Gameport gameport = (Gameport) getApplication();
+
         mProgress.setMessage("업데이트 중 ...");
 
         final String userName = _userName.getText().toString().trim();
@@ -82,6 +84,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         if(!TextUtils.isEmpty(userName) && !TextUtils.isEmpty(bankName) && !TextUtils.isEmpty(accountText) && !TextUtils.isEmpty(phoneText) && mImageUri != null) {
 
+            gameport.setGlobalValue(mCheckUserData);
             mProgress.show();
             StorageReference filepath = mStorage.child("User_Images").child(mImageUri.getLastPathSegment());
 
