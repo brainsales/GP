@@ -18,8 +18,11 @@ import android.widget.Toast;
 import com.brainsales.gameport.utils.Gameport;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -32,6 +35,8 @@ public class ReviewActivity extends AppCompatActivity {
     private static final int SELECT_VIDEO = 3;
     private ImageButton mSelectImage;
     private DatabaseReference mDatabase;
+    private DatabaseReference mPoters;
+    private FirebaseAuth mAuth;
     private Button mChooseButton;
     private Button mAnnounceVideo;
     private EditText mDescription;
@@ -41,14 +46,16 @@ public class ReviewActivity extends AppCompatActivity {
     private TextView mTextView;
     private StorageReference mStorage;
 
-    public boolean mCheckUserData;
+    private String ispoter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_review);
 
+        mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Reviews");
+        mPoters = FirebaseDatabase.getInstance().getReference().child("Users");
         mStorage = FirebaseStorage.getInstance().getReference();
         mSelectImage = (ImageButton) findViewById(R.id.thumbnail);
         mChooseButton = (Button) findViewById(R.id.choose_vedio);
@@ -88,8 +95,9 @@ public class ReviewActivity extends AppCompatActivity {
 
     private void startAnnounceVideo() {
 
-        Gameport gameport = (Gameport) getApplication();
-        mCheckUserData = gameport.getGlobalValue();
+        String user_id = mAuth.getCurrentUser().getUid();
+
+        ispoter = mPoters.child(user_id).child("User");
 
             mProgress.setMessage("Posting to Square");
 
@@ -97,7 +105,7 @@ public class ReviewActivity extends AppCompatActivity {
 
         if (!TextUtils.isEmpty(VideoDescription) && mVideoUri != null && mImageUri != null) {
 
-            if (mCheckUserData == true) {
+            if (ispoter == "Poter") {
 
                 mProgress.show();
 
@@ -131,7 +139,7 @@ public class ReviewActivity extends AppCompatActivity {
                     }
                 });
             }else {
-                Toast.makeText(getApplicationContext(), "Fill Up User Info", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Switch User To Poter", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);

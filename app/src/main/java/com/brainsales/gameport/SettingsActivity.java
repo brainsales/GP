@@ -28,13 +28,13 @@ import butterknife.ButterKnife;
 public class SettingsActivity extends AppCompatActivity {
     public SettingsActivity() {}
 
+    private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
+    private DatabaseReference mPoters;
     private ProgressDialog mProgress;
     private StorageReference mStorage;
     private Uri mImageUri = null;
     private static final int GALLERY_REQUEST = 1;
-
-    public boolean mCheckUserData = true;
 
     @BindView(R.id.profile_image) ImageButton _userImage;
     @BindView(R.id.user_Name) EditText _userName;
@@ -50,8 +50,10 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
         ButterKnife.bind(this);
 
+        mAuth = FirebaseAuth.getInstance();
         mStorage = FirebaseStorage.getInstance().getReference();
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Poters");
+        mPoters = FirebaseDatabase.getInstance().getReference().child("Users");
         mProgress = new ProgressDialog(this);
 
         _userImage.setOnClickListener(new View.OnClickListener(){
@@ -73,8 +75,6 @@ public class SettingsActivity extends AppCompatActivity {
 
     private void register() {
 
-        Gameport gameport = (Gameport) getApplication();
-
         mProgress.setMessage("업데이트 중 ...");
 
         final String userName = _userName.getText().toString().trim();
@@ -84,7 +84,6 @@ public class SettingsActivity extends AppCompatActivity {
 
         if(!TextUtils.isEmpty(userName) && !TextUtils.isEmpty(bankName) && !TextUtils.isEmpty(accountText) && !TextUtils.isEmpty(phoneText) && mImageUri != null) {
 
-            gameport.setGlobalValue(mCheckUserData);
             mProgress.show();
             StorageReference filepath = mStorage.child("User_Images").child(mImageUri.getLastPathSegment());
 
@@ -94,13 +93,16 @@ public class SettingsActivity extends AppCompatActivity {
 
                     @SuppressWarnings("VisibleForTests") Uri downloadUrl = taskSnapshot.getDownloadUrl();
 
-                    DatabaseReference newPost = mDatabase.push();
+                    String user_id = mAuth.getCurrentUser().getUid();
 
+                    DatabaseReference newPost = mDatabase.push();
                     newPost.child("username").setValue(userName);
                     newPost.child("bankname").setValue(bankName);
                     newPost.child("accountText").setValue(accountText);
                     newPost.child("phoneText").setValue(phoneText);
                     newPost.child("image").setValue(downloadUrl.toString());
+
+                    mPoters.child(user_id).child("User").setValue("Poter");
 
                     mProgress.dismiss();
 

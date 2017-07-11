@@ -112,6 +112,7 @@ public class SignupActivity extends AppCompatActivity {
                         cureent_user_db.child("ID").setValue(name);
                         cureent_user_db.child("email").setValue(email);
                         cureent_user_db.child("UUID").setValue(Uuid);
+                        cureent_user_db.child("User").setValue("general");
 
                         mProgress.dismiss();
 
