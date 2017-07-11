@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -84,6 +85,7 @@ public class ReviewActivity extends AppCompatActivity {
 
     private void startAnnounceVideo() {
 
+
         mProgress.setMessage("Posting to Square");
 
         final String VideoDescription = mDescription.getText().toString().trim();
@@ -122,6 +124,9 @@ public class ReviewActivity extends AppCompatActivity {
                     finish();
                 }
             });
+        }else {
+            Toast.makeText(getApplicationContext(), "Fill Up All Info", Toast.LENGTH_LONG).show();
+            return;
         }
     }
 

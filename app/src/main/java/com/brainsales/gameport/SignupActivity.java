@@ -109,7 +109,7 @@ public class SignupActivity extends AppCompatActivity {
                         String user_id = mAuth.getCurrentUser().getUid();
 
                         DatabaseReference cureent_user_db = mDatabase.child(user_id);
-                        cureent_user_db.child("name").setValue(name);
+                        cureent_user_db.child("ID").setValue(name);
                         cureent_user_db.child("email").setValue(email);
                         cureent_user_db.child("UUID").setValue(Uuid);
 

@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 } else if (!mUser.isEmailVerified()) {
-                    Toast.makeText(getApplicationContext(), "Check Your Email", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Verify Your Email", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(getApplicationContext(), SigninActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);

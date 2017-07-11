@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,6 +25,7 @@ public class PostingActivity extends AppCompatActivity {
     private ImageButton mSelectImage;
     private EditText mGameName;
     private EditText mGameType;
+    private EditText mComEmail;
     private Button mAnnounce;
     private Uri mImageUri = null;
     private static final int GALLERY_REQUEST = 1;
@@ -40,6 +42,7 @@ public class PostingActivity extends AppCompatActivity {
         mStorage = FirebaseStorage.getInstance().getReference();
         mSelectImage = (ImageButton) findViewById(R.id.imageButton);
         mGameName = (EditText) findViewById(R.id.nameText);
+        mComEmail = (EditText) findViewById(R.id.corporation_email);
         mGameType = (EditText) findViewById(R.id.typeText);
         mAnnounce = (Button) findViewById(R.id.applyButton);
         mProgress = new ProgressDialog(this);
@@ -72,6 +75,7 @@ public class PostingActivity extends AppCompatActivity {
 
         final String game_name = mGameName.getText().toString().trim();
         final String game_type = mGameType.getText().toString().trim();
+        final String com_email = mComEmail.getText().toString().trim();
 
         if(!TextUtils.isEmpty(game_name) && !TextUtils.isEmpty(game_type) && mImageUri != null) {
 
@@ -89,6 +93,7 @@ public class PostingActivity extends AppCompatActivity {
 
                     newPost.child("GameName").setValue(game_name);
                     newPost.child("GameType").setValue(game_type);
+                    newPost.child("ComEmail").setValue(com_email);
                     newPost.child("image").setValue(downloadUrl.toString());
                     newPost.child("uid").setValue(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
@@ -101,9 +106,10 @@ public class PostingActivity extends AppCompatActivity {
 
                 }
             });
-
+        }else {
+            Toast.makeText(getApplicationContext(), "Fill Up All Info", Toast.LENGTH_LONG).show();
+            return;
         }
-
     }
 
 

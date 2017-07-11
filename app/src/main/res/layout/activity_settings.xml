@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/profile_image"
         android:layout_width="100dp"
         android:layout_height="120dp"
         android:adjustViewBounds="true"
@@ -17,25 +17,25 @@
         android:layout_marginTop="10dp" />
 
     <EditText
-        android:id="@+id/userName"
+        android:id="@+id/user_Name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/imageButton"
+        android:layout_below="@+id/profile_image"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/input_outline"
-        android:hint="User Name"
+        android:hint="UserName for Bank"
         android:inputType="textPersonName"
         android:padding="15dp" />
 
     <EditText
-        android:id="@+id/bankName"
+        android:id="@+id/bank_Name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/input_outline"
-        android:layout_below="@+id/userName"
+        android:layout_below="@+id/user_Name"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
@@ -45,35 +45,35 @@
         android:hint="Bank Name"/>
 
     <EditText
-        android:id="@+id/accountText"
+        android:id="@+id/account_Text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/input_outline"
-        android:layout_below="@+id/bankName"
+        android:layout_below="@+id/bank_Name"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="20dp"
         android:padding="15dp"
         android:inputType="number"
-        android:hint="Account Numbers"/>
+        android:hint="Account Numbers (except -)"/>
 
     <EditText
-        android:id="@+id/phoneText"
+        android:id="@+id/phone_Text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/input_outline"
-        android:layout_below="@+id/accountText"
+        android:layout_below="@+id/account_Text"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="20dp"
         android:padding="15dp"
         android:inputType="number"
-        android:hint="Phone Numbers"/>
+        android:hint="Phone Numbers (except -)"/>
     
     <Button
-        android:id="@+id/userApply"
+        android:id="@+id/user_Apply"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

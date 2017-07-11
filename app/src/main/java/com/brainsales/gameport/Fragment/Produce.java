@@ -105,16 +105,13 @@ public class Produce extends Fragment {
             ImageView post_image = (ImageView) mView.findViewById(R.id.game_image);
            // Picasso.with(ctx).load(image).into(post_image);
 
-
             Glide.with(ctx)
                     .load(image)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .override(70, 40)
+                    .override(340, 216)
                     .centerCrop()
                     .into(post_image);
 
         }
     }
-
-
 }

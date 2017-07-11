@@ -8,9 +8,10 @@
 
     <ImageButton
         android:id="@+id/imageButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="340dp"
+        android:layout_height="216dp"
         android:src="@mipmap/add_btn"
+        android:layout_marginTop="10dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:background="#00ffffff"
@@ -26,7 +27,7 @@
         android:layout_below="@+id/imageButton"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_marginRight="20dp"
         android:padding="15dp"
         android:hint="Game Name"/>

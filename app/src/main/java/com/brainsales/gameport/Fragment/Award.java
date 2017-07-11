@@ -66,7 +66,6 @@ public class Award extends Fragment {
                     @Override
                     public void onClick(View v) {
 
-                        //Toast.makeText(getActivity(), "Start Player", Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(getActivity(), PlayerActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
