@@ -17,12 +17,6 @@
 
     <item
         android:id="@+id/action_Posting"
-        android:icon="@mipmap/ic_playlist_add_white_24dp"
-        android:title="Posting_announce"
-        app:showAsAction="always"/>
-
-    <item
-        android:id="@+id/apply_review"
         android:icon="@mipmap/ic_backup_white_24dp"
         android:title="Posting_review"
         app:showAsAction="always"/>

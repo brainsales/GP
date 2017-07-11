@@ -114,12 +114,6 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }
 
-        if (id == R.id.apply_review) {
-            Intent intent = new Intent(getApplicationContext(), ReviewActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-        }
-
         if (id == R.id.action_logout) {
             logout();
         }

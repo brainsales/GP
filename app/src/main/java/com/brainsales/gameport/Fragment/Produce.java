@@ -2,6 +2,7 @@ package com.brainsales.gameport.Fragment;
 
 import android.content.Context;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.brainsales.gameport.R;
+import com.brainsales.gameport.ReviewActivity;
 import com.brainsales.gameport.utils.ProduceSetting;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -60,6 +62,17 @@ public class Produce extends Fragment {
                 viewHolder.setName(model.getGameName());
                 viewHolder.setType(model.getGameType());
                 viewHolder.setImage(getActivity().getApplicationContext(), model.getImage());
+
+                viewHolder.mView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        Intent intent = new Intent(getActivity(), ReviewActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+
+                    }
+                });
             }
         };
 
@@ -96,7 +109,7 @@ public class Produce extends Fragment {
             Glide.with(ctx)
                     .load(image)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .override(200, 130)
+                    .override(70, 40)
                     .centerCrop()
                     .into(post_image);
 
