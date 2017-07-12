@@ -61,7 +61,8 @@ public class Award extends Fragment {
             @Override
             protected void populateViewHolder(AwardViewHolder viewHolder, AwardSetting model, int position) {
                 viewHolder.setDescription(model.getDescription());
-                viewHolder.setImage(getActivity().getApplicationContext(), model.getImage());
+                viewHolder.setThumbnail_Images(getActivity().getApplicationContext(), model.getThumbnail_Images());
+                viewHolder.setCard_Image(getActivity().getApplicationContext(), model.getCard_Image());
 
                 viewHolder.mView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -96,21 +97,24 @@ public class Award extends Fragment {
             post_description.setText(description);
         }
 
-        public void setImage(Context ctx, String image) {
+        public void setThumbnail_Images(Context ctx, String Thumbnail_Images) {
+
             ImageView post_image = (ImageView) mView.findViewById(R.id.card_image);
+
+            Glide.with(ctx)
+                    .load(Thumbnail_Images)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .centerCrop()
+                    .into(post_image);
+        }
+
+        public void setCard_Image(Context ctx, String Card_Image) {
+
             ImageView user_image = (ImageView) mView.findViewById(R.id.user_image);
 
             Glide.with(ctx)
-                    .load(image)
+                    .load(Card_Image)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .override(340, 216)
-                    .centerCrop()
-                    .into(post_image);
-
-            Glide.with(ctx)
-                    .load(image)
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .override(80, 120)
                     .centerCrop()
                     .into(user_image);
         }

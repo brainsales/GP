@@ -7,14 +7,15 @@ package com.brainsales.gameport.utils;
 public class AwardSetting {
 
     private String Description;
-    private String image;
-    private String card;
+    private String Thumbnail_Images;
+    private String Card_Image;
 
     public AwardSetting() {}
 
-    public AwardSetting(String description, String image) {
+    public AwardSetting(String description, String Thumbnail_Images, String Card_Image) {
         Description = description;
-        this.image = image;
+        this.Thumbnail_Images = Thumbnail_Images;
+        this.Card_Image = Card_Image;
     }
 
     public String getDescription() {
@@ -25,12 +26,20 @@ public class AwardSetting {
         Description = description;
     }
 
-    public String getImage() {
-        return image;
+    public String getThumbnail_Images() {
+        return Thumbnail_Images;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setThumbnail_Images(String Thumbnail_Images) {
+        this.Thumbnail_Images = Thumbnail_Images;
+    }
+
+    public String getCard_Image() {
+        return Card_Image;
+    }
+
+    public void setCard_Image(String Card_Image) {
+        this.Card_Image = Card_Image;
     }
 
 }

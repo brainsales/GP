@@ -11,9 +11,10 @@
 
         <ImageView
             android:id="@+id/card_image"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="340dp"
+            android:layout_height="216dp"
             android:adjustViewBounds="true"
+            android:layout_centerHorizontal="true"
             android:scaleType="centerCrop"
             android:src="@mipmap/add_btn"
             />

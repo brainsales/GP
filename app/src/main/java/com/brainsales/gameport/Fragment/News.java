@@ -87,9 +87,9 @@ public class News extends Fragment {
             mView = itemView;
         }
 
-        public void setImage(Context ctx, String image) {
+        public void setImage(Context ctx, String Thumbnail_Images) {
             ImageView post_image = (ImageView) mView.findViewById(R.id.info_image);
-            Picasso.with(ctx).load(image).into(post_image);
+            Picasso.with(ctx).load(Thumbnail_Images).into(post_image);
         }
 
     }

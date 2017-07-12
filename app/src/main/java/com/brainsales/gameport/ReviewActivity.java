@@ -44,6 +44,8 @@ public class ReviewActivity extends AppCompatActivity {
     private Uri mImageUri = null;
     private Uri mCardImage = null;
     private Uri mVideoUri = null;
+    private Uri finalUriImage = null;
+    private Uri finalUriCard = null;
     private ProgressDialog mProgress;
     private TextView mTextView;
     private StorageReference mStorage;
@@ -111,38 +113,33 @@ public class ReviewActivity extends AppCompatActivity {
 
             mProgress.show();
 
-            StorageReference filepath_Images = mStorage.child("Reviews").child(mImageUri.getLastPathSegment());
+            StorageReference filepath_Images = mStorage.child("Thumbnail_Images").child(mImageUri.getLastPathSegment());
             filepath_Images.putFile(mImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
                     @SuppressWarnings("VisibleForTests") Uri downloadUrl = taskSnapshot.getDownloadUrl();
 
-                    DatabaseReference newPost = mDatabase.push();
-                    newPost.child("Description").setValue(VideoDescription);
-                    newPost.child("Thumbnail_Images").setValue(downloadUrl.toString());
-                    newPost.child("Card_Image").setValue(downloadUrl.toString());
-                    newPost.child("uid").setValue(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                    finalUriImage = downloadUrl;
 
                 }
             });
 
 
-            StorageReference filepath_Card = mStorage.child("Reviews").child(mCardImage.getLastPathSegment());
+            StorageReference filepath_Card = mStorage.child("Card_Image").child(mCardImage.getLastPathSegment());
             filepath_Card.putFile(mCardImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
                     @SuppressWarnings("VisibleForTests") Uri downloadUrl = taskSnapshot.getDownloadUrl();
 
-                    DatabaseReference newPost = mDatabase.push();
-                    newPost.child("Card_Image").setValue(downloadUrl.toString());
+                    finalUriCard = downloadUrl;
 
                 }
             });
 
 
-            StorageReference filepath_Video = mStorage.child("Reviews").child(mVideoUri.getLastPathSegment());
+            StorageReference filepath_Video = mStorage.child("video_review").child(mVideoUri.getLastPathSegment());
             filepath_Video.putFile(mVideoUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -150,7 +147,12 @@ public class ReviewActivity extends AppCompatActivity {
                     @SuppressWarnings("VisibleForTests") Uri downloadUrl = taskSnapshot.getDownloadUrl();
 
                     DatabaseReference newPost = mDatabase.push();
+                    newPost.child("Description").setValue(VideoDescription);
+                    newPost.child("Thumbnail_Images").setValue(finalUriImage.toString());
+                    newPost.child("uid").setValue(FirebaseAuth.getInstance().getCurrentUser().getUid());
                     newPost.child("video_review").setValue(downloadUrl.toString());
+                    newPost.child("Card_Image").setValue(finalUriCard.toString());
+
                     mProgress.dismiss();
 
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
