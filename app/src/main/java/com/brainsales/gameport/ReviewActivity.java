@@ -3,6 +3,7 @@ package com.brainsales.gameport;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.Cursor;
+import android.media.Image;
 import android.net.Uri;
 import android.provider.OpenableColumns;
 import android.support.v7.app.AppCompatActivity;
@@ -30,15 +31,18 @@ import com.google.firebase.storage.UploadTask;
 public class ReviewActivity extends AppCompatActivity {
 
     private String selectedPath = new String();
-    private static final int GALLERY_REQUEST = 1;
+    private static final int GALLERY_REQUEST = 2;
+    private static final int GALLERY_REQUEST_card = 1;
     private static final int SELECT_VIDEO = 3;
     private ImageButton mSelectImage;
+    private ImageButton mSelectCard;
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
     private Button mChooseButton;
     private Button mAnnounceVideo;
     private EditText mDescription;
     private Uri mImageUri = null;
+    private Uri mCardImage = null;
     private Uri mVideoUri = null;
     private ProgressDialog mProgress;
     private TextView mTextView;
@@ -53,6 +57,7 @@ public class ReviewActivity extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Reviews");
         mStorage = FirebaseStorage.getInstance().getReference();
         mSelectImage = (ImageButton) findViewById(R.id.thumbnail);
+        mSelectCard = (ImageButton) findViewById(R.id.user_cardimage);
         mChooseButton = (Button) findViewById(R.id.choose_vedio);
         mTextView = (TextView) findViewById(R.id.choose_path);
         mDescription = (EditText) findViewById(R.id.description_text);
@@ -65,6 +70,15 @@ public class ReviewActivity extends AppCompatActivity {
                 Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
                 galleryIntent.setType("image/*");
                 startActivityForResult(galleryIntent, GALLERY_REQUEST);
+            }
+        });
+
+        mSelectCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
+                galleryIntent.setType("image/*");
+                startActivityForResult(galleryIntent, GALLERY_REQUEST_card);
             }
         });
 
@@ -93,11 +107,11 @@ public class ReviewActivity extends AppCompatActivity {
 
         final String VideoDescription = mDescription.getText().toString().trim();
 
-        if (!TextUtils.isEmpty(VideoDescription) && mVideoUri != null && mImageUri != null) {
+        if (!TextUtils.isEmpty(VideoDescription) && mVideoUri != null && mImageUri != null && mCardImage != null) {
 
             mProgress.show();
 
-            StorageReference filepath_Images = mStorage.child("Thumbnail_Images").child(mImageUri.getLastPathSegment());
+            StorageReference filepath_Images = mStorage.child("Reviews").child(mImageUri.getLastPathSegment());
             filepath_Images.putFile(mImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -106,18 +120,37 @@ public class ReviewActivity extends AppCompatActivity {
 
                     DatabaseReference newPost = mDatabase.push();
                     newPost.child("Description").setValue(VideoDescription);
-                    newPost.child("image").setValue(downloadUrl.toString());
-                    newPost.child("video_review").setValue(downloadUrl.toString());
+                    newPost.child("Thumbnail_Images").setValue(downloadUrl.toString());
+                    newPost.child("Card_Image").setValue(downloadUrl.toString());
                     newPost.child("uid").setValue(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
                 }
             });
 
-            StorageReference filepath_Video = mStorage.child("Review_Video").child(mVideoUri.getLastPathSegment());
+
+            StorageReference filepath_Card = mStorage.child("Reviews").child(mCardImage.getLastPathSegment());
+            filepath_Card.putFile(mCardImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                    @SuppressWarnings("VisibleForTests") Uri downloadUrl = taskSnapshot.getDownloadUrl();
+
+                    DatabaseReference newPost = mDatabase.push();
+                    newPost.child("Card_Image").setValue(downloadUrl.toString());
+
+                }
+            });
+
+
+            StorageReference filepath_Video = mStorage.child("Reviews").child(mVideoUri.getLastPathSegment());
             filepath_Video.putFile(mVideoUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
+                    @SuppressWarnings("VisibleForTests") Uri downloadUrl = taskSnapshot.getDownloadUrl();
+
+                    DatabaseReference newPost = mDatabase.push();
+                    newPost.child("video_review").setValue(downloadUrl.toString());
                     mProgress.dismiss();
 
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
@@ -148,6 +181,11 @@ public class ReviewActivity extends AppCompatActivity {
             mVideoUri = data.getData();
             selectedPath = getFileName(mVideoUri);
             mTextView.setText(selectedPath);
+
+        } else if (requestCode == GALLERY_REQUEST_card && resultCode == RESULT_OK) {
+
+            mCardImage = data.getData();
+            mSelectCard.setImageURI(mCardImage);
         }
     }
 

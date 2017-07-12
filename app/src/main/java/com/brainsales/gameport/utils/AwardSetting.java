@@ -8,6 +8,7 @@ public class AwardSetting {
 
     private String Description;
     private String image;
+    private String card;
 
     public AwardSetting() {}
 

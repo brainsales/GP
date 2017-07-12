@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -6,12 +12,24 @@
     android:layout_height="match_parent">
 
     <ImageButton
-        android:id="@+id/thumbnail"
-        android:layout_width="340dp"
-        android:layout_height="216dp"
-        android:src="@mipmap/add_btn"
+        android:id="@+id/user_cardimage"
+        android:layout_width="80dp"
+        android:layout_height="120dp"
+        android:src="@drawable/profileimage"
         android:layout_marginTop="10dp"
         android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:background="#00ffffff"
+        android:scaleType="centerCrop"
+        android:adjustViewBounds="true" />
+
+    <ImageButton
+        android:id="@+id/thumbnail"
+        android:layout_below="@+id/user_cardimage"
+        android:layout_width="340dp"
+        android:layout_height="216dp"
+        android:layout_marginTop="20dp"
+        android:src="@mipmap/add_btn"
         android:layout_centerHorizontal="true"
         android:background="#00ffffff"
         android:scaleType="centerCrop"
@@ -65,3 +83,4 @@
 
 
 </RelativeLayout>
+</ScrollView>
