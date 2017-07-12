@@ -6,21 +6,21 @@ package com.brainsales.gameport.utils;
 
 public class NewsSetting {
 
-    private String Thumbnail_Images;
+    private String image;
 
     public NewsSetting() {}
 
-    public NewsSetting(String Thumbnail_Images) {
+    public NewsSetting(String image) {
 
-        this.Thumbnail_Images = Thumbnail_Images;
+        this.image = image;
     }
 
     public String getImage() {
-        return Thumbnail_Images;
+        return image;
     }
 
     public void setImage(String image) {
-        this.Thumbnail_Images = Thumbnail_Images;
+        this.image = image;
     }
 
 }

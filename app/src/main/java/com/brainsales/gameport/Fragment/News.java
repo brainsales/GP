@@ -47,7 +47,7 @@ public class News extends Fragment {
         mAwardList = (RecyclerView) rootView.findViewById(R.id.news_recycler_view);
         manager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         mAwardList.setLayoutManager(manager);
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("Reviews");
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("Games");
 
         if (mAwardList != null) {
             mAwardList.setHasFixedSize(true);
@@ -87,9 +87,9 @@ public class News extends Fragment {
             mView = itemView;
         }
 
-        public void setImage(Context ctx, String Thumbnail_Images) {
+        public void setImage(Context ctx, String image) {
             ImageView post_image = (ImageView) mView.findViewById(R.id.info_image);
-            Picasso.with(ctx).load(Thumbnail_Images).into(post_image);
+            Picasso.with(ctx).load(image).into(post_image);
         }
 
     }
