@@ -29,7 +29,9 @@ import com.google.firebase.database.FirebaseDatabase;
 public class Award extends Fragment {
 
     private DatabaseReference mDatabase;
+    private DatabaseReference mUserImage;
     private FirebaseRecyclerAdapter<AwardSetting, AwardViewHolder> mFirebaseAdapter;
+    private FirebaseRecyclerAdapter<AwardSetting, AwardViewHolder> mFirebaseAdapterUser;
     private RecyclerView mAwardList = null;
     private View rootView;
     private ProgressDialog mProgress;
@@ -47,6 +49,8 @@ public class Award extends Fragment {
         mAwardList = (RecyclerView) rootView.findViewById(R.id.award_recycler_view);
         manager = new LinearLayoutManager(getActivity());
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Reviews");
+        mUserImage = FirebaseDatabase.getInstance().getReference().child("Users");
+
         manager.setStackFromEnd(true);
         manager.setReverseLayout(true);
 
@@ -74,6 +78,11 @@ public class Award extends Fragment {
                 });
             }
         };
+
+
+
+
+
 
         mAwardList.setLayoutManager(manager);
         mFirebaseAdapter.notifyDataSetChanged();

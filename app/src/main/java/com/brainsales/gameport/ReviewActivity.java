@@ -27,7 +27,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-
 public class ReviewActivity extends AppCompatActivity {
 
     private String selectedPath = new String();
@@ -35,7 +34,6 @@ public class ReviewActivity extends AppCompatActivity {
     private static final int SELECT_VIDEO = 3;
     private ImageButton mSelectImage;
     private DatabaseReference mDatabase;
-    private DatabaseReference mPoters;
     private FirebaseAuth mAuth;
     private Button mChooseButton;
     private Button mAnnounceVideo;
@@ -46,8 +44,6 @@ public class ReviewActivity extends AppCompatActivity {
     private TextView mTextView;
     private StorageReference mStorage;
 
-    private String ispoter;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,7 +51,6 @@ public class ReviewActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Reviews");
-        mPoters = FirebaseDatabase.getInstance().getReference().child("Users");
         mStorage = FirebaseStorage.getInstance().getReference();
         mSelectImage = (ImageButton) findViewById(R.id.thumbnail);
         mChooseButton = (Button) findViewById(R.id.choose_vedio);
@@ -63,7 +58,6 @@ public class ReviewActivity extends AppCompatActivity {
         mDescription = (EditText) findViewById(R.id.description_text);
         mAnnounceVideo = (Button) findViewById(R.id.apply_button);
         mProgress = new ProgressDialog(this);
-
 
         mSelectImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,56 +89,44 @@ public class ReviewActivity extends AppCompatActivity {
 
     private void startAnnounceVideo() {
 
-        String user_id = mAuth.getCurrentUser().getUid();
-
-        ispoter = mPoters.child(user_id).child("User");
-
-            mProgress.setMessage("Posting to Square");
+        mProgress.setMessage("Posting to Square");
 
         final String VideoDescription = mDescription.getText().toString().trim();
 
         if (!TextUtils.isEmpty(VideoDescription) && mVideoUri != null && mImageUri != null) {
 
-            if (ispoter == "Poter") {
+            mProgress.show();
 
-                mProgress.show();
+            StorageReference filepath_Images = mStorage.child("Thumbnail_Images").child(mImageUri.getLastPathSegment());
+            filepath_Images.putFile(mImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
-                StorageReference filepath_Images = mStorage.child("Thumbnail_Images").child(mImageUri.getLastPathSegment());
-                filepath_Images.putFile(mImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    @SuppressWarnings("VisibleForTests") Uri downloadUrl = taskSnapshot.getDownloadUrl();
 
-                        @SuppressWarnings("VisibleForTests") Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                    DatabaseReference newPost = mDatabase.push();
+                    newPost.child("Description").setValue(VideoDescription);
+                    newPost.child("image").setValue(downloadUrl.toString());
+                    newPost.child("video_review").setValue(downloadUrl.toString());
+                    newPost.child("uid").setValue(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
-                        DatabaseReference newPost = mDatabase.push();
-                        newPost.child("Description").setValue(VideoDescription);
-                        newPost.child("image").setValue(downloadUrl.toString());
-                        newPost.child("video_review").setValue(downloadUrl.toString());
-                        newPost.child("uid").setValue(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                }
+            });
 
-                    }
-                });
+            StorageReference filepath_Video = mStorage.child("Review_Video").child(mVideoUri.getLastPathSegment());
+            filepath_Video.putFile(mVideoUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
-                StorageReference filepath_Video = mStorage.child("Review_Video").child(mVideoUri.getLastPathSegment());
-                filepath_Video.putFile(mVideoUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    mProgress.dismiss();
 
-                        mProgress.dismiss();
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                    finish();
+                }
+            });
 
-                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(intent);
-                        finish();
-                    }
-                });
-            }else {
-                Toast.makeText(getApplicationContext(), "Switch User To Poter", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                finish();
-            }
         } else {
             Toast.makeText(getApplicationContext(), "Fill Up All Info", Toast.LENGTH_LONG).show();
             return;
@@ -169,7 +151,7 @@ public class ReviewActivity extends AppCompatActivity {
         }
     }
 
-    
+
     public String getFileName(Uri uri) {
         String result = null;
         if (uri.getScheme().equals("content")) {

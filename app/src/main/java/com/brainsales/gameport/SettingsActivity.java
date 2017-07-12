@@ -30,7 +30,6 @@ public class SettingsActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
-    private DatabaseReference mPoters;
     private ProgressDialog mProgress;
     private StorageReference mStorage;
     private Uri mImageUri = null;
@@ -53,10 +52,9 @@ public class SettingsActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         mStorage = FirebaseStorage.getInstance().getReference();
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Poters");
-        mPoters = FirebaseDatabase.getInstance().getReference().child("Users");
         mProgress = new ProgressDialog(this);
 
-        _userImage.setOnClickListener(new View.OnClickListener(){
+        _userImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
@@ -82,7 +80,7 @@ public class SettingsActivity extends AppCompatActivity {
         final String accountText = _accountText.getText().toString().trim();
         final String phoneText = _phoneText.getText().toString().trim();
 
-        if(!TextUtils.isEmpty(userName) && !TextUtils.isEmpty(bankName) && !TextUtils.isEmpty(accountText) && !TextUtils.isEmpty(phoneText) && mImageUri != null) {
+        if (!TextUtils.isEmpty(userName) && !TextUtils.isEmpty(bankName) && !TextUtils.isEmpty(accountText) && !TextUtils.isEmpty(phoneText) && mImageUri != null) {
 
             mProgress.show();
             StorageReference filepath = mStorage.child("User_Images").child(mImageUri.getLastPathSegment());
@@ -93,16 +91,12 @@ public class SettingsActivity extends AppCompatActivity {
 
                     @SuppressWarnings("VisibleForTests") Uri downloadUrl = taskSnapshot.getDownloadUrl();
 
-                    String user_id = mAuth.getCurrentUser().getUid();
-
                     DatabaseReference newPost = mDatabase.push();
                     newPost.child("username").setValue(userName);
                     newPost.child("bankname").setValue(bankName);
                     newPost.child("accountText").setValue(accountText);
                     newPost.child("phoneText").setValue(phoneText);
                     newPost.child("image").setValue(downloadUrl.toString());
-
-                    mPoters.child(user_id).child("User").setValue("Poter");
 
                     mProgress.dismiss();
 
@@ -113,7 +107,7 @@ public class SettingsActivity extends AppCompatActivity {
 
                 }
             });
-        }else {
+        } else {
             Toast.makeText(getApplicationContext(), "Fill Up All Info", Toast.LENGTH_LONG).show();
             return;
         }
@@ -123,7 +117,7 @@ public class SettingsActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == GALLERY_REQUEST && resultCode == RESULT_OK) {
+        if (requestCode == GALLERY_REQUEST && resultCode == RESULT_OK) {
 
             mImageUri = data.getData();
             _userImage.setImageURI(mImageUri);
