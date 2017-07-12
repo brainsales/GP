@@ -28,7 +28,6 @@ import butterknife.ButterKnife;
 public class SettingsActivity extends AppCompatActivity {
     public SettingsActivity() {}
 
-    private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
     private ProgressDialog mProgress;
     private StorageReference mStorage;
@@ -49,7 +48,6 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
         ButterKnife.bind(this);
 
-        mAuth = FirebaseAuth.getInstance();
         mStorage = FirebaseStorage.getInstance().getReference();
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Poters");
         mProgress = new ProgressDialog(this);
@@ -97,6 +95,7 @@ public class SettingsActivity extends AppCompatActivity {
                     newPost.child("accountText").setValue(accountText);
                     newPost.child("phoneText").setValue(phoneText);
                     newPost.child("image").setValue(downloadUrl.toString());
+                    newPost.child("uid").setValue(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
                     mProgress.dismiss();
 

@@ -90,7 +90,6 @@ public class PostingActivity extends AppCompatActivity {
                     @SuppressWarnings("VisibleForTests") Uri downloadUrl = taskSnapshot.getDownloadUrl();
 
                     DatabaseReference newPost = mDatabase.push();
-
                     newPost.child("GameName").setValue(game_name);
                     newPost.child("GameType").setValue(game_type);
                     newPost.child("ComEmail").setValue(com_email);

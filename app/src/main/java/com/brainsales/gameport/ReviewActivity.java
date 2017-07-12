@@ -37,7 +37,6 @@ public class ReviewActivity extends AppCompatActivity {
     private ImageButton mSelectImage;
     private ImageButton mSelectCard;
     private DatabaseReference mDatabase;
-    private FirebaseAuth mAuth;
     private Button mChooseButton;
     private Button mAnnounceVideo;
     private EditText mDescription;
@@ -55,7 +54,6 @@ public class ReviewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_review);
 
-        mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Reviews");
         mStorage = FirebaseStorage.getInstance().getReference();
         mSelectImage = (ImageButton) findViewById(R.id.thumbnail);
